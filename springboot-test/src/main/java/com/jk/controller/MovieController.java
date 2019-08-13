@@ -60,6 +60,7 @@ public class MovieController {
     @RequestMapping("/querycus")
     @ResponseBody
     public Map querycus(int page,int rows){
+        System.out.println("0000000000000000000");
         List list=movieService.querycus(page,rows);
         Long l=movieService.querycuscount();
         Map map=new HashMap();
