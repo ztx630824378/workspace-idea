@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<form id="addFormId">
+    <input type="hidden" name="roleid" th:value="${role.roleid }">
+    <table>
+        <tr>
+            <td>角色名称</td>
+            <td><input class="easyui-validatebox" name="rolename" th:value="${role.rolename }" style="width:100px;"/></td>
+        </tr>
+        <tr>
+            <td>角色描述</td>
+            <td><input class="easyui-validatebox" name="text" th:value="${role.text }" style="width:100px;"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

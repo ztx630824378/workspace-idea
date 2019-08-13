@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Customer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="departmentid" property="departmentid" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="gjtime" property="gjtime" jdbcType="DATE" />
+    <result column="locationid" property="locationid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <select id="querybing" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(*) 总个数,DATE_FORMAT(createtime,'%T') 小时 FROM t_customer group by DATE_FORMAT(createtime,'%T')
+    </select>
+    <select id="queryxian" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(*) 总个数,DATE_FORMAT(createtime,'%Y') 年份 FROM t_customer group by DATE_FORMAT(createtime,'%Y')
+    </select>
+    <select id="queryzhu" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(*) 总个数,DATE_FORMAT(createtime,'%w') 星期 FROM t_customer group by DATE_FORMAT(createtime,'%w')
+    </select>
+    <select id="querymian" resultType="java.util.LinkedHashMap">
+        SELECT COUNT(*) 总个数,DATE_FORMAT(createtime,'%M') 月份 FROM t_customer group by DATE_FORMAT(createtime,'%M')
+    </select>
+
+    <update id="updatecus">
+        update t_customer set createtime=#{createtime},departmentid=#{departmentid},description=#{description},
+        locationid=#{locationid},name=#{name},phone=#{phone}
+        where id=#{id}
+    </update>
+
+  <select id="querycus" resultMap="BaseResultMap">
+    select * from t_customer
+    limit #{papa},#{rows}
+  </select>
+
+  <select id="querycuscount" resultType="long">
+    select count(*) from t_customer
+  </select>
+
+  <insert id="addcus">
+    insert into t_customer(createtime,departmentid,description,gjtime,locationid,name,phone) values
+    (#{createtime},#{departmentid},#{description},#{gjtime},#{locationid},#{name},#{phone})
+ </insert>
+
+  <delete id="delcus">
+    delete from t_customer where id in (${ids})
+  </delete>
+
+  <update id="updgj">
+    update t_customer set gjtime=sysdate() where id = #{id}
+  </update>
+
+  <update id="updqxgj">
+    update t_customer set gjtime=null where id = #{id}
+  </update>
+
+    <select id="updcus" resultMap="BaseResultMap">
+        select * from t_customer where id=#{id}
+    </select>
+
+</mapper>

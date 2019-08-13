@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script  src="../jslib/highcharts.js"></script>
+    <script  src="../jslib/jquery-1.8.0.js"></script>
+</head>
+<body>
+<div id="container" style="min-width:400px;height:400px"></div>
+</body>
+<SCRIPT>
+
+    $(function(){
+        $.ajax({
+            url:"../movie/querymian",
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                var chart = Highcharts.chart('container',{
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: '按月查询'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        allowDecimals: false
+                    },
+                    yAxis: {
+                        title: {
+                            text: '数量'
+                        },
+                    },
+                    tooltip: {
+                        pointFormat: ''
+                    },
+                    series:data
+                });
+            },error:function () {
+                alert("查询失败")
+            }
+            })
+    })
+</SCRIPT>
+</html>

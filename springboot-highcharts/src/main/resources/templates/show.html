@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+    <script  src="../jslib/highcharts.js"></script>
+    <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../jslib/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jslib/uploadify/uploadify.css" />
+</head>
+
+<body class="easyui-layout">
+
+<div id="666" data-options="region:'north',title:'top',split:true" style="height:100px;">
+</div>
+<div data-options="region:'west',title:'菜单',split:true" style="width:200px;">
+    <ul id="showTreeId"></ul>
+</div>
+<div data-options="region:'center',title:'主模板'" style="padding:5px;background:#eee;">
+    <div id="showTabsId" data-options="fit:true" class="easyui-tabs" style="width:500px;height:250px;">
+    </div>
+</div>
+<div id="showDialogId"></div>
+<script type="text/javascript">
+    $('#showTreeId').tree({
+        url:'../movie/queryTree',
+        onClick: function(node){
+            if(node.url!=null){
+                var seltab = $('#showTabsId').tabs('exists',node.text);
+                if(seltab){
+                    $('#showTabsId').tabs('select',node.text);
+                }else{
+                    $('#showTabsId').tabs('add',{
+                        title:node.text,
+                        closable:true,
+                        href:".."+node.url,
+                        tools:[{
+                            iconCls:'icon-mini-refresh',
+                            handler:function(){
+                                var tab = $('#showTabsId').tabs('getSelected');
+                                tab.panel('refresh', ".."+node.url);
+                            }
+                        }]
+                    });
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
