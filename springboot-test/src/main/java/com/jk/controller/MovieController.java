@@ -61,6 +61,7 @@ public class MovieController {
     @ResponseBody
     public Map querycus(int page,int rows){
         System.out.println("0000000000000000000");
+        System.out.println("1111111111111111111");
         List list=movieService.querycus(page,rows);
         Long l=movieService.querycuscount();
         Map map=new HashMap();
