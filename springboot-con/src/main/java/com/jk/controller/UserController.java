@@ -86,7 +86,7 @@ public class UserController {
     @ResponseBody
     public int queryUser(Users users, HttpServletRequest request){
         List<Users> list=us.queryUser(users);
-        System.out.println("111111111111");
+        System.out.println("11111111111");
         if(list==null||list.size()==0){
             return 0;
         }else{
